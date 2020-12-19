@@ -76,7 +76,7 @@ def dispatch_top_five():
     return data
 
 
-@app.route("/delivered-top-5", methods=['GET'])
+# @app.route("/delivered-top-5", methods=['GET'])
 
 
 if __name__ == "__main__":
