@@ -32,7 +32,7 @@
         console.log(data);
         setTimeout(500);
     }
-    main();
+    // main();
     async function push(){
         var url = URL+"/push?data="+push_data.value;
         const response = await fetch(url);
@@ -54,27 +54,47 @@
         main();
     }
 
-    setInterval(main,2000)
+    // setInterval(main,2000)
 </script>
 
-    <h1 style="color:#0366D6;">StackApi</h1>
+    <h1 style="color:#0366D6;">VaccineHub</h1>
+
+    <br> 
+    <!-- <h3 id="size"> Loading </h3> -->
+    <br>
+    <center>
+
+        <div> 
+            <ul>
+                <li>Coffee</li>
+                <li>Tea</li>
+                <li>Milk</li>
+              </ul>
+            
+        </div>
+
+        <div> 
+            <ul>
+                <li>Coffee</li>
+                <li>Tea</li>
+                <li>Milk</li>
+              </ul>
+            
+        </div>
+        <!-- <table style="width:70%" id="data">  -->
+        <!-- For printing data   from server -->
+        <!-- </table> -->
+    </center>
+    <br> 
+
     <p> 
         <!-- Making a text input -->
         <input type="text" id="push_data" placeholder="Push Data">       
         <!-- Button to send data -->
-        <button onclick="push()">🔼Push</button> 
-        <button onclick="pop()"> 🔽Pop </button> <br><br> 
+        <!-- <button onclick="push()">🔼Push</button>  -->
+        <button> Search </button> <br><br> 
         <!-- For printing result from server -->
         <p id="result" style="color:green"> </p> 
     </p>
-    <br> 
-    <h3 id="size"> Loading </h3>
-    <br>
-    <center>
-        <table style="width:70%" id="data"> 
-        <!-- For printing data   from server -->
-        </table>
-    </center>
-    <br> 
 </body>
 </html>
