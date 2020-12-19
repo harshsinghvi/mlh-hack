@@ -6,7 +6,6 @@ from flask import request, jsonify
 from flask_cors import CORS, cross_origin
 from flask import render_template
 import creds
-from stack import Stack
 
 def get_stack_from_db():
     stackdb=mongo.db.stack.find({"name" :"stack0"})[0]
@@ -34,8 +33,7 @@ app.config["DEBUG"] = False
 MONGO_DB_URI = os.environ['MONGO_DB_URI']
 app.config['MONGO_URI'] = MONGO_DB_URI
 mongo = PyMongo(app)
-stackdb=mongo.db.stack.find({"name" :"stack0"})[0]
-stack = Stack(elements=stackdb['data'])
+db=mongo.db.hackathon
 
 @app.route("/")
 def index():
@@ -65,6 +63,21 @@ def push():
     except: 
         return "Internal Server Error With DB", 500
     return {"PUSH":" OK"},200
+
+@app.route("/dispatch-top-5", methods=['GET'])
+def dispatch_top_five():
+    data=[]
+    d= db.consignments.find()
+    try:
+        for i in range(6):
+            data[i]=d[i]
+    except:
+        pass
+    return data
+
+
+@app.route("/delivered-top-5", methods=['GET'])
+
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0')
