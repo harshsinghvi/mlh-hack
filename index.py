@@ -7,24 +7,24 @@ from flask_cors import CORS, cross_origin
 from flask import render_template
 import creds
 
-def get_stack_from_db():
-    stackdb=mongo.db.stack.find({"name" :"stack0"})[0]
-    stack._stack['data'] = stackdb['data']
-    stack._data_validate()
-    return "OK",200
+# def get_stack_from_db():
+#     stackdb=mongo.db.stack.find({"name" :"stack0"})[0]
+#     stack._stack['data'] = stackdb['data']
+#     stack._data_validate()
+#     return "OK",200
 
-def dbupdate():
-    temp={
-        "$set":{
-        "data":stack.stack(),
-        "size":stack.size()
-        }
-    }
-    try :
-        mongo.db.stack.update_one({"name":"stack0"},temp)
-    except: 
-        return "Internal Server Error With DB", 500
-    return "DB UPDATE OK",200
+# def dbupdate():
+#     temp={
+#         "$set":{
+#         "data":stack.stack(),
+#         "size":stack.size()
+#         }
+#     }
+#     try :
+#         mongo.db.stack.update_one({"name":"stack0"},temp)
+#     except: 
+#         return "Internal Server Error With DB", 500
+#     return "DB UPDATE OK",200
 
 #  APP CONFIG 
 app = flask.Flask(__name__)
@@ -39,38 +39,40 @@ db=mongo.db.hackathon
 def index():
     return render_template("index.html")
 
-@app.route('/stack',methods=['GET'])
-def view_stack():
-    get_stack_from_db()
-    return json.dumps(stack.raw_stack()),200
+# @app.route('/stack',methods=['GET'])
+# def view_stack():
+#     get_stack_from_db()
+#     return json.dumps(stack.raw_stack()),200
 
-@app.route('/pop',methods=['GET'])
-def pop():
-    stack.pop()
-    try :
-        dbupdate()
-    except: 
-        return "Internal Server Error With DB", 500
-    return {"POP":"OK"},200
+# @app.route('/pop',methods=['GET'])
+# def pop():
+#     stack.pop()
+#     try :
+#         dbupdate()
+#     except: 
+#         return "Internal Server Error With DB", 500
+#     return {"POP":"OK"},200
 
-@app.route('/push',methods=['GET'])
-def push():
-    if 'data' not in request.args:
-        return "Bad Request Please Pass the data in the Quary Parameters",400
-    stack.push(request.args['data'])
-    try :
-        dbupdate()
-    except: 
-        return "Internal Server Error With DB", 500
-    return {"PUSH":" OK"},200
+# @app.route('/push',methods=['GET'])
+# def push():
+#     if 'data' not in request.args:
+#         return "Bad Request Please Pass the data in the Quary Parameters",400
+#     stack.push(request.args['data'])
+#     try :
+#         dbupdate()
+#     except: 
+#         return "Internal Server Error With DB", 500
+#     return {"PUSH":" OK"},200
 
 @app.route("/dispatch-top-5", methods=['GET'])
 def dispatch_top_five():
-    data=[]
+    data={"data":[]}
     d= db.consignments.find()
+    print(d)
     try:
         for i in range(6):
-            data[i]=d[i]
+            data["data"][i]=d[i]
+            print(d[i])
     except:
         pass
     return data
