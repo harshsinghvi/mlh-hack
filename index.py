@@ -33,7 +33,7 @@ app.config["DEBUG"] = False
 MONGO_DB_URI = os.environ['MONGO_DB_URI']
 app.config['MONGO_URI'] = MONGO_DB_URI
 mongo = PyMongo(app)
-db=mongo.db.hackathon
+
 
 @app.route("/")
 def index():
@@ -67,7 +67,7 @@ def index():
 @app.route("/dispatch-top-5", methods=['GET'])
 def dispatch_top_five():
     data={"data":[]}
-    d= db.consignments.find()
+    d= mongo.db.consignments.find()
     print(d)
     try:
         for i in range(6):
